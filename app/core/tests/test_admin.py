@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.http import response
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -34,6 +33,15 @@ class AdminSiteTest(TestCase):
         Test that the user edit page works
         """
         url = reverse("admin:core_user_change", args=[self.user.id])
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_user(self):
+        """
+        Test that the create user page works
+        """
+        url = reverse("admin:core_user_add")
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
